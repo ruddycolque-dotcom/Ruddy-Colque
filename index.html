@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lomas del Sol · Galería de renders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eceae4;--fg:#1c2a22;--mut:#5d6a62;--line:#cfccc2;--acc:#a8452f;--card:#f7f6f2;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121a15;--fg:#e8e6df;--mut:#9aa69d;--line:#2b382f;--acc:#d9795f;--card:#18231c}}
+:root[data-theme="dark"]{--bg:#121a15;--fg:#e8e6df;--mut:#9aa69d;--line:#2b382f;--acc:#d9795f;--card:#18231c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+.hero{position:relative;min-height:78vh;display:flex;align-items:flex-end;overflow:hidden}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,18,13,.85),rgba(10,18,13,.05) 60%)}
+.hero div{position:relative;z-index:1;padding:clamp(20px,5vw,64px);color:#f2f0ea;max-width:900px}
+h1{font-size:clamp(2.6rem,9vw,6.5rem);line-height:.95;margin:0 0 14px;font-weight:800;letter-spacing:-.03em}
+.hero p{margin:0;font-size:clamp(1rem,2vw,1.2rem);max-width:46ch;opacity:.9}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:24px clamp(16px,4vw,48px) 8px}
+.bar button{font:inherit;font-weight:600;border:1px solid var(--line);background:transparent;color:var(--fg);padding:8px 18px;border-radius:999px;cursor:pointer}
+.bar button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.bar span{margin-left:auto;color:var(--mut);font-size:.9rem}
+button:focus-visible,.card:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:14px;padding:12px clamp(16px,4vw,48px) 56px}
+.card{position:relative;margin:0;border:0;padding:0;cursor:pointer;overflow:hidden;background:var(--card);aspect-ratio:16/10;display:block;width:100%;text-align:left;font:inherit;color:inherit}
+.card.wide{grid-column:span 2}
+@media(max-width:700px){.card.wide{grid-column:auto}}
+.card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.card:hover img{transform:scale(1.04)}
+.card b{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 12px;color:#fff;font-weight:600;background:linear-gradient(to top,rgba(0,0,0,.7),transparent)}
+footer{padding:28px clamp(16px,4vw,48px) 40px;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}
+.lb{position:fixed;inset:0;background:rgba(8,12,10,.95);display:none;flex-direction:column;z-index:20;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+.lb.on{display:flex}
+.lb .stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:12px 56px}
+.lb img{max-width:100%;max-height:100%;object-fit:contain}
+.lb .cap{color:#ece9e2;text-align:center;padding:4px 16px 18px}
+.lb .cap small{display:block;color:#a5afa8}
+.lb button{position:absolute;background:rgba(255,255,255,.12);color:#fff;border:0;width:44px;height:44px;border-radius:50%;font-size:1.4rem;cursor:pointer}
+.lb .x{top:calc(12px + env(safe-area-inset-top,0px));right:12px}
+.lb .p{left:8px;top:50%}.lb .n{right:8px;top:50%}
+footer strong{color:var(--fg);font-size:1.05rem}footer a{color:var(--acc);font-weight:600}
+.about{padding:40px clamp(16px,4vw,48px) 32px;border-top:1px solid var(--line)}.about h2{margin:0 0 10px;font-size:1.6rem;letter-spacing:-.01em}.about p{margin:0;max-width:62ch;color:var(--mut);font-size:1.05rem}
+@media(prefers-reduced-motion:reduce){.card img{transition:none}}
+</style>
+</head>
+<body>
+<header class="hero"><img id="hi" alt="Vista del conjunto Lomas del Sol"><div><h1>Lomas del Sol</h1><p>Renders del conjunto residencial: exteriores, áreas comunes y departamentos.</p></div></header>
+<nav class="bar" aria-label="Filtros">
+<button data-f="all" aria-pressed="true">Todos</button><button data-f="ext" aria-pressed="false">Exteriores</button><button data-f="int" aria-pressed="false">Interiores</button><span id="cnt"></span></nav>
+<main class="grid" id="grid"></main>
+<section class="about"><h2>Sobre este trabajo</h2><p>Soy arquitecto y trabajo en La Paz, Bolivia. Esta galería reúne los renders del conjunto residencial Lomas del Sol: las vistas exteriores, las áreas comunes y los ambientes interiores de los departamentos.</p></section>
+<footer><strong>Arq. Ruddy Colque Mamani</strong><br>La Paz, Bolivia<br>Correo: <a href="mailto:ruddycolque@gmail.com">ruddycolque@gmail.com</a><br>Cel. <a href="tel:+59176747989">76747989</a> · <a href="https://wa.me/59176747989" rel="noopener">Escribir por WhatsApp</a></footer>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Imagen ampliada"><button class="x" aria-label="Cerrar">×</button><button class="p" aria-label="Anterior">‹</button><button class="n" aria-label="Siguiente">›</button><div class="stage"><img id="li" alt=""></div><div class="cap" id="lc"></div></div>
+<script>
+const D=[{"src": "images/render-01.jpg", "c": "ext", "t": "Acceso principal", "d": "Pórtico de ingreso con portería y torres al fondo"}, {"src": "images/render-02.jpg", "c": "ext", "t": "Vista aérea del acceso", "d": "El conjunto visto desde arriba, con las montañas detrás"}, {"src": "images/render-03.jpg", "c": "ext", "t": "Calle interior y plaza", "d": "Circulación vehicular y áreas de descanso entre bloques"}, {"src": "images/render-04.jpg", "c": "ext", "t": "Áreas sociales", "d": "Pérgolas con parrilleros y senderos de ladrillo"}, {"src": "images/render-05.jpg", "c": "ext", "t": "Senderos y jardines", "d": "Recorrido peatonal junto a la torre"}, {"src": "images/render-06.jpg", "c": "ext", "t": "Torre y entorno", "d": "Fachada con escalera vidriada y paisaje"}, {"src": "images/render-07.jpg", "c": "int", "t": "Sala y comedor", "d": "Ambiente integrado con luz natural"}, {"src": "images/render-08.jpg", "c": "int", "t": "Dormitorio con escritorio", "d": "Espacio de estudio junto a la ventana"}, {"src": "images/render-09.jpg", "c": "int", "t": "Dormitorio principal", "d": "Cama matrimonial y sector de estar"}];
+const $=s=>document.querySelector(s);
+$("#hi").src=D[1].src;
+let cur="all",list=[],pos=0;
+function render(){
+ list=D.filter(i=>cur==="all"||i.c===cur);
+ $("#grid").innerHTML="";
+ list.forEach((it,k)=>{
+  const b=document.createElement("button");b.className="card"+(k===0&&cur==="all"?" wide":"");
+  b.innerHTML='<img loading="lazy" alt=""><b></b>';
+  b.querySelector("img").src=it.src;b.querySelector("img").alt=it.t+": "+it.d;b.querySelector("b").textContent=it.t;
+  b.onclick=()=>open(k);$("#grid").appendChild(b);
+ });
+ $("#cnt").textContent=list.length+" imágenes";
+}
+document.querySelectorAll(".bar button").forEach(b=>b.onclick=()=>{
+ cur=b.dataset.f;document.querySelectorAll(".bar button").forEach(x=>x.setAttribute("aria-pressed",x===b));render();});
+function show(){const it=list[pos];$("#li").src=it.src;$("#li").alt=it.t;$("#lc").innerHTML="";
+ const t=document.createElement("div");t.textContent=it.t;const s=document.createElement("small");s.textContent=it.d+" ("+(pos+1)+" de "+list.length+")";$("#lc").append(t,s);}
+function open(k){pos=k;show();$("#lb").classList.add("on");}
+function close(){$("#lb").classList.remove("on");}
+function step(d){pos=(pos+d+list.length)%list.length;show();}
+$(".x").onclick=close;$(".p").onclick=()=>step(-1);$(".n").onclick=()=>step(1);
+$("#lb").onclick=e=>{if(e.target.id==="lb"||e.target.classList.contains("stage"))close();};
+document.addEventListener("keydown",e=>{if(!$("#lb").classList.contains("on"))return;
+ if(e.key==="Escape")close();if(e.key==="ArrowLeft")step(-1);if(e.key==="ArrowRight")step(1);});
+let sx=null;$("#lb").addEventListener("touchstart",e=>sx=e.touches[0].clientX);
+$("#lb").addEventListener("touchend",e=>{if(sx===null)return;const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>50)step(d<0?1:-1);sx=null;});
+render();
+</script>
+</body>
+</html>
